@@ -3,10 +3,11 @@ from selenium import webdriver
 
 class NaverLogin:
 
-    def __init__(self):
+    def __init__(self, url):
         self.driver = webdriver.Chrome(executable_path='C:/Users/ezen/PycharmProjects/tensorflow190803/webcrawl/data/chromedriver')
         self.driver.implicitly_wait(3)
         self.driver.get(url)
+        self.soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 
     def auto_login(self):
         self.driver.find_element_by_name('id').send_keys('*****')
