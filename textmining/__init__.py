@@ -1,5 +1,6 @@
 from textmining.model import SamsungReport
 
 if __name__ == '__main__':
-    f = SamsungReport.read_file() # static 이면 바로 호출 가능
-    print(SamsungReport.extract_hangeul(f))
+    sam = SamsungReport() # static이 아니라서 그럼
+    sam.download()
+    # print(sam.extract_noun())
