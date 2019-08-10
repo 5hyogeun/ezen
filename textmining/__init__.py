@@ -7,5 +7,8 @@ if __name__ == '__main__':
     # sung = SamsungReport()
     # sung.read_stopword()
 
-    txt = SamsungReport()
-    txt.find_freq()
+    # txt = SamsungReport()
+    # txt.find_freq()
+
+    result = SamsungReport()
+    result.draw_wordcloud()

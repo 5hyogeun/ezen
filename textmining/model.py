@@ -82,7 +82,7 @@ class SamsungReport:
         return freqtxt
 
     def draw_wordcloud(self):
-        texts = self.find_freq()
+        texts = self.remove_stopword()
         wcloud = WordCloud('./data/D2Coding.ttf', relative_scaling = 0.2,
                            background_color = 'white').generate(" ".join(texts))
 
