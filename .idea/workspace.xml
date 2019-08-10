@@ -26,6 +26,9 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ezen\PycharmProjects\tensorflow190803\webcrawl\data" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\" />
     </key>
