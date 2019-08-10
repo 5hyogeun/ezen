@@ -19,4 +19,11 @@ class SamsungReport:
     @staticmethod
     def extract_hangeul(texts):
         temp = texts.replace('\n', ' ') # 줄바꿈 띄어쓰기로 변환
-        tokenizer = re.compile(r'[^ ㄱ-힣]')
+        tokenizer = re.compile(r'[^ ㄱ-힣]') # 한글 있는 것만 뽑아내라
+        temp = tokenizer.sub('', temp)
+        return temp
+
+    @staticmethod
+    def chane_token(texts):
+        tokens = word_tokenize()
+        print(tokens[:7])
