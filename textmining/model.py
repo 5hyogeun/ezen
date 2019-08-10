@@ -2,6 +2,10 @@ from konlpy.tag import Okt
 from nltk.tokenize import word_tokenize
 import nltk
 import re
+import pandas as pd
+from nltk import FreqDist
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 class SamsungReport:
 
@@ -25,7 +29,7 @@ class SamsungReport:
     @staticmethod
     def change_token(texts):
         tokens = word_tokenize(texts)
-        print(tokens[:7])
+        # print(tokens[:7])
         return tokens
 
     def extract_noun(self):
@@ -39,9 +43,50 @@ class SamsungReport:
                 noun_tokens.append("".join(temp))
 
         texts = " ".join(noun_tokens)
-        print('------------추출된 명사 300 ------------')
-        print(texts[:300])
+        # print('------------추출된 명사 300 ------------')
+        # print(texts[:300])
+        return texts
 
     @staticmethod
     def download():
         nltk.download()
+
+    @staticmethod
+    def read_stopword(): # 필요 없는 단어 필터링 함
+        stopfile = './data/stopwords.txt'
+        with open(stopfile, 'r', encoding = 'utf-8') as f: # 안 하면 한글 깨짐. 'r'은 read의 뜻
+            stopwords = f.read()
+        stopwords = stopwords.split(' ')
+        # print('-------제거할 단어 -------')
+        # print(stopwords[:10])
+        return stopwords
+
+    def remove_stopword(self):
+        texts = self.extract_noun()
+        tokens = self.change_token(texts)
+        # print('------- 1. 명사 -------')
+        # print(texts[:30])
+        stopwords = self.read_stopword()
+        # print('------- 2. 스톱 -------')
+        # print(stopwords[:30])
+        # print('------- 3. 필터 -------')
+        texts = [text for text in tokens if text not in stopwords]
+        # print(texts[:30])
+        return texts
+
+    # 사용 빈도로 순위 매기기
+    def find_freq(self):
+        texts = self.remove_stopword()
+        freqtxt = pd.Series(dict(FreqDist(texts))).sort_values(ascending = False)
+        # print(freqtxt[:30])
+        return freqtxt
+
+    def draw_wordcloud(self):
+        texts = self.find_freq()
+        wcloud = WordCloud('./data/D2Coding.ttf', relative_scaling = 0.2,
+                           background_color = 'white').generate(" ".join(texts))
+
+        plt.figure(figsize = (12,12))
+        plt.imshow(wcloud, interpolation = 'bilinear')
+        plt.axis('off')
+        plt.show()
